@@ -27,6 +27,6 @@
     ALTER ROLE
     template1=# \q
     # Pg admin UI
-    ![alt text](images/pgadmin.png)
+![alt text](images/pgadmin.png)
      username:postgres
      password:postgres
