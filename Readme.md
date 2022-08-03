@@ -34,7 +34,6 @@
 
 ### Create a django project with sqllite3
     - Need to change for Postgres
-[Ref] https://github.com/vubon/django-celery-redis
 [Ref] https://github.com/sathishmtech01/djangoapi
     
     (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis$ django-admin startproject celeryapp
@@ -71,14 +70,17 @@
     Django version 4.1, using settings 'celeryapp.settings'
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
-    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ python manage.py createsuperuser
-    Username (leave blank to use 'csk'): 
+    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ $ pyth manage.py createsuperuser
+    Username (leave blank to use 'csk'): admin
     Email address: sathish.mtech01@gmail.com
-    Password: <qwerty123>
-    Password (again): <qwerty123>
+    Password: <admin>
+    Password (again): <admin>
+    The password is too similar to the username.
+    This password is too short. It must contain at least 8 characters.
     This password is too common.
     Bypass password validation and create user anyway? [y/N]: y
     Superuser created successfully.
+
 
 ![alt text](images/django_admin.png)
     
@@ -110,3 +112,42 @@
     Aug 03 20:54:17 csk-ai-revolution systemd[1]: Started Advanced key-value store.
     
 
+### Celery app created 
+[Ref] https://github.com/vubon/django-celery-redis
+    
+    - celerayapp/celeryapp/settings.py
+        # Celery base setup
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = TIME_ZONE
+    
+    # database updated to ppostgres
+    DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'celerytask',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+    
+    # App added
+    'api',
+    'django_celery_result',
+    'django_extensions',
+    
+    Added logic 
+    - celerayapp/api/admin.py
+    - celerayapp/api/models.py
+    - celerayapp/api/tasks.py
+    
+    - celerayapp/celeryapp/celery.py
