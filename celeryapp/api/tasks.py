@@ -3,7 +3,7 @@ from celery import shared_task
 from .models import GetData
 
 
-@shared_task(name='vubon')
+@shared_task(name='csk')
 def test():
     print(' Hello world')
     return 'test'

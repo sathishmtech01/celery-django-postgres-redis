@@ -26,7 +26,7 @@ def debug_task(self):
 
 app.conf.beat_schedule = {
     'add-every-5-seconds': {
-        'task': 'vubon',
+        'task': 'csk',
         'schedule': 5.0,
     },
     'add-every-minute-contrab': {
