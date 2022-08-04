@@ -151,3 +151,78 @@
     - celerayapp/api/tasks.py
     
     - celerayapp/celeryapp/celery.py
+    
+### Running Celery beat
+    
+    - Terminal one
+    
+    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ celery -A celeryapp worker -l info
+ 
+     -------------- celery@csk-ai-revolution v5.2.7 (dawn-chorus)
+    --- ***** ----- 
+    -- ******* ---- Linux-4.4.0-210-generic-x86_64-with-glibc2.10 2022-08-03 16:35:15
+    - *** --- * --- 
+    - ** ---------- [config]
+    - ** ---------- .> app:         celeryapp:0x7f3b483618e0
+    - ** ---------- .> transport:   redis://localhost:6379//
+    - ** ---------- .> results:     redis://localhost:6379/
+    - *** --- * --- .> concurrency: 4 (prefork)
+    -- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+    --- ***** ----- 
+     -------------- [queues]
+                    .> celery           exchange=celery(direct) key=celery
+                    
+    
+    [tasks]
+      . celeryapp.celery.debug_task
+      . csk
+      . data_checking
+    
+    [2022-08-03 16:35:15,780: INFO/MainProcess] Connected to redis://localhost:6379//
+    [2022-08-03 16:35:15,784: INFO/MainProcess] mingle: searching for neighbors
+    [2022-08-03 16:35:16,793: INFO/MainProcess] mingle: all alone
+    [2022-08-03 16:35:16,802: WARNING/MainProcess] /home/csk/PycharmProjects/git/odoo_dev/celery-django-postgres-redis/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+                leak, never use this setting in production environments!
+      warnings.warn('''Using settings.DEBUG leads to a memory
+    
+    [2022-08-03 16:35:16,802: INFO/MainProcess] celery@csk-ai-revolution ready.
+    [2022-08-03 16:35:16,941: INFO/MainProcess] Task csk[a1bb15bc-9a40-45c2-a480-72763b15be53] received
+    [2022-08-03 16:35:16,944: WARNING/ForkPoolWorker-1]  Hello world
+    
+    
+    
+    - Terminal 2
+    
+    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ celery -A celeryapp beat -l info
+    celery beat v5.2.7 (dawn-chorus) is starting.
+    __    -    ... __   -        _
+    LocalTime -> 2022-08-03 16:35:33
+    Configuration ->
+        . broker -> redis://localhost:6379//
+        . loader -> celery.loaders.app.AppLoader
+        . scheduler -> celery.beat.PersistentScheduler
+        . db -> celerybeat-schedule
+        . logfile -> [stderr]@%INFO
+        . maxinterval -> 5.00 minutes (300s)
+    [2022-08-03 16:35:33,588: INFO/MainProcess] beat: Starting...
+    [2022-08-03 16:35:33,624: INFO/MainProcess] Scheduler: Sending due task add-every-5-seconds (csk)
+    [2022-08-03 16:35:38,621: INFO/MainProcess] Scheduler: Sending due task add-every-5-seconds (csk)
+    [2022-08-03 16:35:43,621: INFO/MainProcess] Scheduler: Sending due task add-every-5-seconds (csk)
+    [2022-08-03 16:35:48,622: INFO/MainProcess] Scheduler: Sending due task add-every-5-seconds (csk)
+    
+    
+    - In celeryapp.py
+    
+    app.conf.beat_schedule = {
+    'add-every-5-seconds': {
+        'task': 'csk',
+        'schedule': 5.0,
+    },
+    'add-every-minute-contrab': {
+        'task': 'data_checking',
+        'schedule': crontab(minute=1),
+    },
+    }
+    
+    
+[Refer]https://www.youtube.com/watch?v=-x_Z_V9HXZE&list=PLmDLs7JbXWNjr5vyJhfGu69sowgIUl8z5&index=17   

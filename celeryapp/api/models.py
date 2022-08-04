@@ -79,3 +79,13 @@ class TransferAmount(models.Model):
 
     def __str__(self):
         return self.identify
+
+
+class Emp(models.Model):
+    name = models.CharField(max_length=20)
+    sex = models.CharField(max_length=5)
+    age = models.DecimalField(max_digits=14, decimal_places=4)
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return self.name
