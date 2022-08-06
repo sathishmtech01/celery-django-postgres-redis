@@ -79,7 +79,7 @@
     Django version 4.1, using settings 'celeryapp.settings'
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
-    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ $ pyth manage.py createsuperuser
+    (celery-django-postgres-redis) csk@csk-ai-revolution:~/PycharmProjects/git/celery-django-postgres-redis/celeryapp$ $ python3 manage.py createsuperuser
     Username (leave blank to use 'csk'): admin
     Email address: sathish.mtech01@gmail.com
     Password: <admin>

@@ -17,9 +17,23 @@ import json
 # Create your views here.
 @api_view(['GET'])
 @parser_classes([JSONParser])
-def Sample(request):
+def Sample(req):
     try:
-        data=json.loads(request.body)
+        data=req.data
+        return JsonResponse({"data":"hello"})
+    except ValueError as e:
+        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@parser_classes([JSONParser])
+def Sample1(req):
+    try:
+        print(dir(req))
+        print(req.data)
+        data =req.data
+        # data=json.loads(req.data)
+        print(data)
+        print(type(data))
         return JsonResponse(data)
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
