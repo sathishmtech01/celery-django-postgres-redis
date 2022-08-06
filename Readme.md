@@ -13,11 +13,8 @@
     
     # Install the latest version of PostgreSQL.
     # If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
-    sudo apt-get -y install postgresql
-    
-### Installing pg admin
-    
-    # Installing from ubuntu software center
+    sudo apt-get -y install postgresql  
+
     # updating the postgres password
     csk@csk-ai-revolution:~$ sudo -u postgres psql template1
     psql (13.3 (Ubuntu 13.3-1.pgdg16.04+1))
@@ -26,7 +23,19 @@
     template1=# ALTER USER postgres PASSWORD 'postgres';
     ALTER ROLE
     template1=# \q
+### Installing pg admin
+
+    csk@csk-ai-revolution:~$ sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100  3935  100  3935    0     0   1169      0  0:00:03  0:00:03 --:--:--  1169
+    csk@csk-ai-revolution:~$ sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+    .....
+    csk@csk-ai-revolution:~$ sudo apt install pgadmin4
+
+
     # Pg admin UI
+
 ![alt text](images/pgadmin.png)
    
     username:postgres
